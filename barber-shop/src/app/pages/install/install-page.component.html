@@ -1,0 +1,14 @@
+<div class="container">
+  <h2>Installa l'app "Double D"</h2>
+  <p>Per un'esperienza più veloce e comoda, aggiungi l'app alla schermata Home.</p>
+
+  <button *ngIf="!isIos()" (click)="installPWA()">Installa l'app</button>
+
+  <div *ngIf="isIos() && !isInStandaloneMode()" class="ios-hint">
+    <p>Su iPhone:</p>
+    <ol>
+      <li>Tocca il pulsante <strong>Condividi</strong> 📤 in basso nel browser</li>
+      <li>Seleziona <strong>"Aggiungi a schermata Home"</strong></li>
+    </ol>
+  </div>
+</div>
