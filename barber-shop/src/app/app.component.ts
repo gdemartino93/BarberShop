@@ -14,16 +14,28 @@ export class AppComponent {
   showInstallButton = false;
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     if (isPlatformBrowser(this.platformId)) {
-
-      window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        this.deferredPrompt = e;
-        this.showInstallButton = true;
-      });
+      if (this.isIos() && !this.isInStandaloneMode()) {
+        this.showInstallButton = true; // O mostra messaggio personalizzato
+      } else {
+        window.addEventListener('beforeinstallprompt', (e) => {
+          e.preventDefault();
+          this.deferredPrompt = e;
+          this.showInstallButton = true;
+        });
+      }
     }
+
   }
 
-  installPWA() {
+  public isIos(): boolean {
+    return /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+  }
+
+  public isInStandaloneMode(): boolean {
+    return ('standalone' in window.navigator) && Boolean((window.navigator as any).standalone);
+  }
+
+  public installPWA() {
     if (this.deferredPrompt) {
       this.deferredPrompt.prompt();
       this.deferredPrompt.userChoice.then(() => {
