@@ -5,6 +5,8 @@
     "INSTRUCTIONS": "To install the app:",
     "STEP1": "Tap <strong>Share</strong> 📤 at the bottom",
     "STEP2": "Select <strong>“Add to Home Screen”</strong>",
-    "CLOSE": "Close"
+    "CLOSE": "Close",
+    "TITLE_WELCOME": "Welcome",
+    "WELCOME": "This is homepage PWA!"
   }
 }
