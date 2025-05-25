@@ -1,4 +1,4 @@
-import { isPlatformBrowser, NgIf, NgStyle } from '@angular/common';
+import { isPlatformBrowser, NgIf } from '@angular/common';
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
@@ -12,10 +12,12 @@ export class AppComponent {
   title = 'barber-shop';
   deferredPrompt: any;
   showInstallButton = false;
+  showIosInstallOverlay = false;
+
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     if (isPlatformBrowser(this.platformId)) {
       if (this.isIos() && !this.isInStandaloneMode()) {
-        this.showInstallButton = true; // O mostra messaggio personalizzato
+        this.showInstallButton = true;
       } else {
         window.addEventListener('beforeinstallprompt', (e) => {
           e.preventDefault();
@@ -24,7 +26,6 @@ export class AppComponent {
         });
       }
     }
-
   }
 
   public isIos(): boolean {
@@ -36,12 +37,18 @@ export class AppComponent {
   }
 
   public installPWA() {
-    if (this.deferredPrompt) {
+    if (this.isIos()) {
+      this.showIosInstallOverlay = true;
+    } else if (this.deferredPrompt) {
       this.deferredPrompt.prompt();
       this.deferredPrompt.userChoice.then(() => {
         this.deferredPrompt = null;
         this.showInstallButton = false;
       });
     }
+  }
+
+  public closeOverlay() {
+    this.showIosInstallOverlay = false;
   }
 }

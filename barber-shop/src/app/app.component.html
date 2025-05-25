@@ -1,1 +1,18 @@
-<button *ngIf="showInstallButton" (click)="installPWA()">Installa l'app</button>
+<!-- Bottone universale -->
+<button *ngIf="showInstallButton" class="install-btn" (click)="installPWA()">
+  Installa l'app111
+</button>
+
+<!-- Overlay in stile iOS -->
+<div *ngIf="showIosInstallOverlay" class="ios-overlay" (click)="closeOverlay()">
+  <div class="ios-sheet" (click)="$event.stopPropagation()" tabindex="0">
+    <div class="handle"></div>
+    <h3>Aggiungi “Double D” alla schermata Home</h3>
+    <p>Per installare l'app:</p>
+    <ol>
+      <li>Tocca <strong>Condividi</strong> <span class="icon">📤</span> in basso</li>
+      <li>Seleziona <strong>“Aggiungi a schermata Home”</strong></li>
+    </ol>
+    <button (click)="closeOverlay()">Chiudi</button>
+  </div>
+</div>
