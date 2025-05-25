@@ -1,0 +1,12 @@
+{
+  "INSTALL_BUTTON": "Install the app",
+  "IOS_OVERLAY": {
+    "TITLE": "Add “Double D” to the Home screen",
+    "INSTRUCTIONS": "To install the app:",
+    "STEP1": "Tap <strong>Share</strong> 📤 at the bottom",
+    "STEP2": "Select <strong>“Add to Home Screen”</strong>",
+    "CLOSE": "Close",
+    "TITLE_WELCOME": "Welcome",
+    "WELCOME": "This is homepage PWA!"
+  }
+}
