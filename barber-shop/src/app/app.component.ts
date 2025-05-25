@@ -1,10 +1,12 @@
 import { isPlatformBrowser, NgIf } from '@angular/common';
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NgIf],
+  standalone: true,
+  imports: [NgIf, TranslateModule ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
