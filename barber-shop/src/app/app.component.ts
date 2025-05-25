@@ -1,54 +1,23 @@
+import { Component, inject, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser, NgIf } from '@angular/common';
-import { Component, Inject, PLATFORM_ID } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { InstallButtonComponent } from './features/install-button/install-button.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NgIf],
+  standalone: true,
+  imports: [InstallButtonComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
-  title = 'barber-shop';
-  deferredPrompt: any;
-  showInstallButton = false;
-  showIosInstallOverlay = false;
+export class AppComponent implements OnInit {
+  private translate = inject(TranslateService);
+  constructor(
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
-    if (isPlatformBrowser(this.platformId)) {
-      if (this.isIos() && !this.isInStandaloneMode()) {
-        this.showInstallButton = true;
-      } else {
-        window.addEventListener('beforeinstallprompt', (e) => {
-          e.preventDefault();
-          this.deferredPrompt = e;
-          this.showInstallButton = true;
-        });
-      }
-    }
+  ) {}
+
+  ngOnInit(): void {
+    this.translate.use(navigator.language.startsWith('en') ? 'en' : 'it');
   }
 
-  public isIos(): boolean {
-    return /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
-  }
-
-  public isInStandaloneMode(): boolean {
-    return ('standalone' in window.navigator) && Boolean((window.navigator as any).standalone);
-  }
-
-  public installPWA() {
-    if (this.isIos()) {
-      this.showIosInstallOverlay = true;
-    } else if (this.deferredPrompt) {
-      this.deferredPrompt.prompt();
-      this.deferredPrompt.userChoice.then(() => {
-        this.deferredPrompt = null;
-        this.showInstallButton = false;
-      });
-    }
-  }
-
-  public closeOverlay() {
-    this.showIosInstallOverlay = false;
-  }
 }

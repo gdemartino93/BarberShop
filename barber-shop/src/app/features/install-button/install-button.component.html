@@ -1,0 +1,20 @@
+<!-- Bottone universale -->
+<button *ngIf="showInstallButton" class="install-btn" (click)="installPWA()">
+  {{ 'INSTALL_BUTTON' | translate }}
+</button>
+
+<!-- Overlay in stile iOS -->
+<div *ngIf="showIosInstallOverlay" class="ios-overlay" (click)="closeOverlay()">
+  <div class="ios-sheet" (click)="$event.stopPropagation()" tabindex="0">
+    <div class="handle"></div>
+    <h3>{{ 'IOS_OVERLAY.TITLE' | translate }}</h3>
+    <p>{{ 'IOS_OVERLAY.INSTRUCTIONS' | translate }}</p>
+    <ol>
+      <li [innerHTML]="'IOS_OVERLAY.STEP1' | translate"></li>
+      <li [innerHTML]="'IOS_OVERLAY.STEP2' | translate"></li>
+    </ol>
+    <button (click)="closeOverlay()">
+      {{ 'IOS_OVERLAY.CLOSE' | translate }}
+    </button>
+  </div>
+</div>
